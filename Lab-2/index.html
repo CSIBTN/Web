@@ -25,8 +25,71 @@
             </ul>
         </nav>
         <button type="submit">Search</button>
-
     </header>
+
+    <main>
+        <h1>Top Teachers</h1>
+        <form style="display: inline-block;">
+            <label for="age">Age</label>
+            <select name="age" id="age">
+                <option value="young">18-26</option>
+                <option value="middle">26-36</option>
+                <option value="senior">36-50</option>
+                <option value="professional">50-65</option>
+            </select>
+            <label for="region">Region</label>
+            <select name="age" id="region">
+                <option value="AF">Africa</option>
+                <option value="AS">Asia</option>
+                <option value="C">Caribbean</option>
+                <option value="CA">Central America</option>
+                <option value="E">Europe</option>
+                <option value="NA">North America</option>
+                <option value="O">Oceania</option>
+                <option value="SA">South America</option>
+            </select>
+            <label for="sex">Sex</label>
+            <select name="age" id="sex">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <label for="withPhoto">Only with photo</label>
+            <input type="checkbox" name="withPhoto" id="withPhoto">
+            <label for="favourites">Only favourites</label>
+            <input type="checkbox" name="favourites" id="favourites">
+        </form>
+        <section id="listOfTeachers">
+            <div id="teacher">
+                <img src="" alt="teacher photo">
+                <h2>First name</h2>
+                <h2>Surname</h2>
+                <h4>Chemistry</h4>
+                <h5>Ukraine</h5>
+            </div>
+        </section>
+        <h1>Statistics</h1>
+        <section id="statistics">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>Speciality</td>
+                    <td>Age</td>
+                    <td>Gender</td>
+                    <td>Nationality</td>
+                </tr>
+                <tr>
+                    <td>Daisy Alexander</td>
+                    <td>Chemistry</td>
+                    <td>28</td>
+                    <td>Female</td>
+                    <td>USA</td>
+                </tr>
+            </table>
+        </section>
+        <h1>Favourites</h1>
+
+    </main>
 </body>
 
 </html>
