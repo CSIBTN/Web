@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,26 +11,29 @@
 
 <body>
     <header>
-        <span>Teachinder</span>
-        <form style="display: inline;">
-            <input type="text" placeholder="Name, note or age to search">
-            <button>Search</button>
-        </form>
-        <br>
-        <nav style="display: inline;">
-            <ul style="display: inline-block;">
-                <li style="display: inline;">Teacher</li>
-                <li style="display: inline;">Statistics</li>
-                <li style="display: inline;">Favourites</li>
-                <li style="display: inline;">About</li>
-            </ul>
-        </nav>
-        <button type="submit">Search</button>
+        <section id="mainHeading">
+            <span>Teachinder</span>
+            <form>
+                <input type="text" placeholder="Name, note or age to search">
+                <button>Search</button>
+            </form>
+        </section>
+        <section>
+            <nav>
+                <ul>
+                    <li>Teacher</li>
+                    <li>Statistics</li>
+                    <li>Favourites</li>
+                    <li>About</li>
+                </ul>
+            </nav>
+            <button type="submit">Search</button>
+        </section>
     </header>
 
     <main>
         <h1>Top Teachers</h1>
-        <form style="display: inline-block;">
+        <form>
             <label for="age">Age</label>
             <select name="age" id="age">
                 <option value="young">18-26</option>
@@ -88,7 +92,26 @@
             </table>
         </section>
         <h1>Favourites</h1>
-
+        <footer>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ipsum nisl, tristique a feugiat
+                porttitor, imperdiet ut justo. Integer quis est vel nunc mollis egestas. In sit amet odio justo. Vivamus
+                quis nulla in magna pretium pulvinar. Maecenas sed convallis sem. Curabitur fermentum leo vitae tellus
+                tristique, sed iaculis augue posuere. Praesent risus sem, facilisis et sagittis ac, auctor ut urna.
+                Suspendisse id felis sit amet lectus aliquam porttitor. Vestibulum sed purus eget augue efficitur
+                efficitur. Maecenas tincidunt mollis tempus. Nullam in condimentum tortor, a euismod dolor. Suspendisse
+                quis elementum lectus, non aliquam felis. Suspendisse ac ultrices elit. Praesent in nulla dapibus,
+                euismod justo et, fermentum massa. Morbi feugiat ullamcorper felis sit amet ultricies. Maecenas varius
+                orci sit amet ante mollis posuere.</p>
+            <nav style="display: inline;">
+                <ul style="display: inline-block;">
+                    <li style="display: inline;">Teacher</li>
+                    <li style="display: inline;">Statistics</li>
+                    <li style="display: inline;">Favourites</li>
+                    <li style="display: inline;">About</li>
+                </ul>
+            </nav>
+            <button type="submit">Search</button>
+        </footer>
     </main>
 </body>
 
