@@ -7,9 +7,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachinder</title>
+
 </head>
 
 <body>
+    <section id="teacherPopUp">
+        <div>
+            <span>Teacher info</span>
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="close pop-up button">
+        </div>
+        <section>
+            <img onclick="closeTeacherPopUp()"
+                src="data:image/jpeg;base64,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"
+                alt="teacher photo">
+            <h2>Ihor Tkachuk</h2>
+            <h3>Chemistry</h3>
+            <h4>Kyiv,Ukraine</h4>
+            <h4>35,Male</h4>
+            <h4>
+                <a href="mailto:ivan.krutin@ukma.edu.ua">ivan.krutin@ukma.edu.ua</a>
+            </h4>
+            <h4>+380636369805</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dictum lacus et venenatis lacinia.
+                Phasellus dictum metus id risus viverra, in posuere metus bibendum. Phasellus porta neque non dictum
+                commodo. Nam sollicitudin nulla vel eleifend fringilla. Donec blandit orci vitae massa tempor venenatis.
+                Ut urna risus, lobortis vel dui vel, venenatis pulvinar lacus. Nunc maximus tempor mauris sed lobortis.
+                Proin molestie, sem ut tempus porttitor, lacus enim facilisis urna, at tempus sapien lectus non eros.
+            </p>
+            <a id="googleMaps" href="https://www.google.com/maps">toogle map</a>
+        </section>
+    </section>
     <header>
         <section id="mainHeading">
             <span>Teachinder</span>
@@ -27,10 +54,10 @@
                     <li>About</li>
                 </ul>
             </nav>
-            <button type="submit">Search</button>
+            <button type="submit">Add teacher</button>
         </section>
     </header>
-
+    <hr>
     <main>
         <h1>Top Teachers</h1>
         <form>
@@ -64,14 +91,16 @@
             <input type="checkbox" name="favourites" id="favourites">
         </form>
         <section id="listOfTeachers">
-            <div id="teacher">
-                <img src="" alt="teacher photo">
+            <section id="teacher" onclick="openTeacherPopUp()">
+                <img src="https://media.istockphoto.com/photos/math-teacher-in-the-classroom-picture-id1358852926?k=20&m=1358852926&s=170667a&w=0&h=lbIoa0cSjgtvzcAUO4UqZ4-mGXcQmF3j_zgpmQ3JU60="
+                    alt="teacher photo">
                 <h2>First name</h2>
                 <h2>Surname</h2>
                 <h4>Chemistry</h4>
                 <h5>Ukraine</h5>
-            </div>
+            </section>
         </section>
+        <hr>
         <h1>Statistics</h1>
         <section id="statistics">
             <table>
@@ -89,30 +118,86 @@
                     <td>Female</td>
                     <td>USA</td>
                 </tr>
+                <tr>
+                    <td>Daisy Alexander</td>
+                    <td>Chemistry</td>
+                    <td>28</td>
+                    <td>Female</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>Daisy Alexander</td>
+                    <td>Chemistry</td>
+                    <td>28</td>
+                    <td>Female</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>Daisy Alexander</td>
+                    <td>Chemistry</td>
+                    <td>28</td>
+                    <td>Female</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>Daisy Alexander</td>
+                    <td>Chemistry</td>
+                    <td>28</td>
+                    <td>Female</td>
+                    <td>USA</td>
+                </tr>
             </table>
         </section>
+        <hr>
         <h1>Favourites</h1>
-        <footer>
+        <section id="favourites">
+            <div id="teacher">
+                <img src="https://media.istockphoto.com/photos/math-teacher-in-the-classroom-picture-id1358852926?k=20&m=1358852926&s=170667a&w=0&h=lbIoa0cSjgtvzcAUO4UqZ4-mGXcQmF3j_zgpmQ3JU60="
+                    alt="teacher photo">
+                <h2>First name</h2>
+                <h2>Surname</h2>
+                <h5>Ukraine</h5>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ipsum nisl, tristique a feugiat
-                porttitor, imperdiet ut justo. Integer quis est vel nunc mollis egestas. In sit amet odio justo. Vivamus
-                quis nulla in magna pretium pulvinar. Maecenas sed convallis sem. Curabitur fermentum leo vitae tellus
+                porttitor, imperdiet ut justo. Integer quis est vel nunc mollis egestas. In sit amet odio justo.
+                Vivamus
+                quis nulla in magna pretium pulvinar. Maecenas sed convallis sem. Curabitur fermentum leo vitae
+                tellus
                 tristique, sed iaculis augue posuere. Praesent risus sem, facilisis et sagittis ac, auctor ut urna.
                 Suspendisse id felis sit amet lectus aliquam porttitor. Vestibulum sed purus eget augue efficitur
-                efficitur. Maecenas tincidunt mollis tempus. Nullam in condimentum tortor, a euismod dolor. Suspendisse
+                efficitur. Maecenas tincidunt mollis tempus. Nullam in condimentum tortor, a euismod dolor.
+                Suspendisse
                 quis elementum lectus, non aliquam felis. Suspendisse ac ultrices elit. Praesent in nulla dapibus,
-                euismod justo et, fermentum massa. Morbi feugiat ullamcorper felis sit amet ultricies. Maecenas varius
+                euismod justo et, fermentum massa. Morbi feugiat ullamcorper felis sit amet ultricies. Maecenas
+                varius
                 orci sit amet ante mollis posuere.</p>
-            <nav style="display: inline;">
-                <ul style="display: inline-block;">
-                    <li style="display: inline;">Teacher</li>
-                    <li style="display: inline;">Statistics</li>
-                    <li style="display: inline;">Favourites</li>
-                    <li style="display: inline;">About</li>
+        </section>
+        <section>
+            <nav>
+                <ul>
+                    <li>Teacher</li>
+                    <li>Statistics</li>
+                    <li>Favourites</li>
+                    <li>About</li>
                 </ul>
             </nav>
-            <button type="submit">Search</button>
-        </footer>
-    </main>
+            <button type="submit">Add teacher</button>
+        </section>
+    </footer>
+    <script>
+        let teacherPopUp = document.getElementById("teacherPopUp")
+        function openTeacherPopUp() {
+            teacherPopUp.classList.add("teacherPopUpOpen")
+            console.log("WORKING")
+        }
+        function closeTeacherPopUp() {
+            teacherPopUp.classList.remove('teacherPopUpOpen')
+        }
+    </script>
 </body>
 
 </html>
