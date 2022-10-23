@@ -183,10 +183,7 @@ textarea {
 hr {
     display: block;
     height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
+    border-top: 1px solid rgb(0, 0, 0);
 }
 
 /* stylelint-enable */
@@ -197,7 +194,6 @@ hr {
 }
 
 body {
-    margin: 1rem;
     background-color: #F4FAFF;
 }
 
@@ -218,14 +214,10 @@ header span {
 }
 
 header section {
-    padding-left: 15%;
-    padding-right: 15%;
+    margin-left: 15%;
+    margin-right: 15%;
     display: flex;
     justify-content: space-between;
-}
-
-header form {
-    float: right;
 }
 
 
@@ -244,6 +236,8 @@ nav {
     color: var(--mainColor);
 }
 
+
+
 nav ul {
     display: flex;
     flex-direction: row;
@@ -251,6 +245,42 @@ nav ul {
     justify-content: space-between;
 }
 
+@media only screen and (max-width: 970px) {
+    .navChange {
+        min-width: 400px;
+        display: block;
+    }
+
+    hr {
+        width: 35%;
+    }
+
+    .teacherFormChange {
+        margin: 20px 0px 0px;
+        padding-left: 0px;
+    }
+
+    .sectionChange {
+        margin: 20px 0px 0px;
+    }
+
+    .footerSectionChange {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+
+    footer button {
+        margin-left: 20px;
+    }
+
+    header button {
+        margin-left: 20px;
+    }
+}
 
 
 #mainHeading {
@@ -259,19 +289,54 @@ nav ul {
     justify-content: space-between;
 }
 
-#teacherPopUp {
+#addTeacherPopUp {
+    width: 300px;
+    height: 500px;
+    margin: auto;
+    border-radius: 3px;
+}
+
+#addTeacherPopUp label {
+    display: flex;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.teacherPopUp {
+    z-index: 10000;
+    width: 600px;
+    height: 500px;
     visibility: hidden;
     margin: auto;
-    width: 20px;
+    position: absolute;
     height: 20px;
     display: flex;
+    top: 0;
+    text-align: center;
     flex-direction: column;
     align-items: center;
-    transform: translate(50%, 50%);
+    transform: translate(100%, 50%);
     transition: transform 0.4, 0.4;
 }
 
-.teacherPopUpOpen {}
+.popUpBackground {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 9999;
+    background-color: rgba(204, 205, 207, 0.8);
+}
+
+.teacherPopUp section {
+    background-color: white;
+}
+
+.teacherPopUpOpenForeground {}
+
+.teacherPopUpOpen {
+    visibility: visible;
+    top: 25%;
+}
 
 .classTest {
     margin: 50px;
