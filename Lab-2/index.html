@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teachinder</title>
+
+</head>
+
+<body>
+    <section class="container" id="addTeacherPopUpContainer">
+        <section id="addTeacherPopUp">
+            <div class="header">
+                <span class="header-span">Add teacher</span>
+                <img class="header-image" onclick="closeAddTeacherPopUp()"
+                    src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png" alt="close pop-up button">
+            </div>
+            <form action="POST">
+                <div class="row-single-unit">
+                    <label class="entry-label" for="name">Name</label>
+                    <input class="input-field-single" type="text" name="name" id="name">
+                </div>
+                <div class="row-single-unit">
+                    <label class="entry-label" for="speciality">Speciality</label>
+                    <select class="input-field-single" name="speciality" id="speciality">
+                        <option value="math">Mathematics</option>
+                        <option value="english">English</option>
+                        <option value="programming">Programming</option>
+                        <option value="music">Music</option>
+                        <option value="chemistry">Chemistry</option>
+                    </select>
+                </div>
+                <div class="row-double-unit">
+                    <div class="unit-block">
+                        <label class="entry-label" for="country">Country</label>
+                        <select class="input-field-double" name="country" id="country">
+                            <option value="ua">Ukraine</option>
+                            <option value="ua">Ukraine</option>
+                            <option value="ua">Ukraine</option>
+                        </select>
+                    </div>
+                    <div class="unit-block">
+                        <label class="entry-label" for="city">City</label>
+                        <input class="input-field-double input-field-double-right" type="text" name="city" id="city">
+                    </div>
+                </div>
+                <div class="row-double-unit">
+                    <div class="unit-block">
+                        <label class="entry-label" for="email">Email</label>
+                        <input class="input-field-double" type="email" name="email" id="email">
+                    </div>
+                    <div class="unit-block">
+                        <label class="entry-label" for="phone">Phone</label>
+                        <input class="entry-label input-field-double-right" type="number" name="phone" id="phone">
+                    </div>
+                </div>
+                <div class="row-double-unit">
+                    <div class="unit-block">
+                        <label class="entry-label" for="birth">Date of birth</label>
+                        <input class="input-field-double" type="date" name="birth" id="birth">
+                    </div>
+                </div>
+                <div class="row-double-unit">
+                    <div class="unit-block-non-flex">
+                        <label class="entry-non-flex-label">Sex</label>
+                        <div class="gender-container">
+                            <label for="male">Male</label>
+                            <input type="checkbox" name="male" id="male">
+                            <label for="female">Female</label>
+                            <input type="checkbox" name="female" id="female">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-double-unit">
+                    <div class="unit-block-non-flex">
+                        <label class="entry-non-flex-label" bgColor">Background color</label>
+                        <input type="color" name="bgColor" id="bgColor">
+                    </div>
+                </div>
+                <div class="row-single-unit">
+                    <label class="entry-label" for="notes">Notes (optional)</label>
+                    <textarea class="input-field-single" notes" id="notes" cols="30" rows="10"></textarea>
+                </div>
+                <button>Add</button>
+            </form>
+        </section>
+    </section>
+
+    <section id="popUpBackground">
+        <section class="teacherPopUp" id="teacherPopUp">
+            <div>
+                <span>Teacher info</span>
+                <img onclick="closeTeacherPopUp()" src="https://cdn-icons-png.flaticon.com/512/1828/1828778.png"
+                    alt="close pop-up button">
+            </div>
+            <section>
+                <img src="" alt="teacher photo">
+                <h2>Ihor Tkachuk</h2>
+                <h3>Chemistry</h3>
+                <h4>Kyiv,Ukraine</h4>
+                <h4>35,Male</h4>
+                <h4>
+                    <a href="mailto:ivan.krutin@ukma.edu.ua">ivan.krutin@ukma.edu.ua</a>
+                </h4>
+                <h4>+380636369805</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce dictum lacus et venenatis lacinia.
+                    Phasellus dictum metus id risus viverra, in posuere metus bibendum. Phasellus porta neque non dictum
+                    commodo. Nam sollicitudin nulla vel eleifend fringilla. Donec blandit orci vitae massa tempor
+                    venenatis.
+                    Ut urna risus, lobortis vel dui vel, venenatis pulvinar lacus. Nunc maximus tempor mauris sed
+                    lobortis.
+                    Proin molestie, sem ut tempus porttitor, lacus enim facilisis urna, at tempus sapien lectus non
+                    eros.
+                </p>
+                <a id="googleMaps" href="https://www.google.com/maps">toogle map</a>
+            </section>
+        </section>
+    </section>
+    <header>
+        <section class="sectionChange" id="mainHeading">
+            <span>Teachinder</span>
+            <form class="formChange">
+                <input type="text" placeholder="Name, note or age to search">
+                <button>Search</button>
+            </form>
+        </section>
+        <section class="sectionChange">
+            <nav class="navChange">
+                <ul>
+                    <li>Teacher</li>
+                    <li>Statistics</li>
+                    <li>Favourites</li>
+                    <li>About</li>
+                </ul>
+            </nav>
+            <button type="submit" onclick="openAddTeacherPopUp()">Add teacher</button>
+        </section>
+    </header>
+    <hr>
+    <main>
+        <h1>Top Teachers</h1>
+        <form class="teacherFormChange">
+            <label for="age">Age</label>
+            <select name="age" id="age">
+                <option value="young">18-26</option>
+                <option value="middle">26-36</option>
+                <option value="senior">36-50</option>
+                <option value="professional">50-65</option>
+            </select>
+            <label for="region">Region</label>
+            <select name="age" id="region">
+                <option value="AF">Africa</option>
+                <option value="AS">Asia</option>
+                <option value="C">Caribbean</option>
+                <option value="CA">Central America</option>
+                <option value="E">Europe</option>
+                <option value="NA">North America</option>
+                <option value="O">Oceania</option>
+                <option value="SA">South America</option>
+            </select>
+            <label for="sex">Sex</label>
+            <select name="age" id="sex">
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <label for="withPhoto">Only with photo</label>
+            <input type="checkbox" name="withPhoto" id="withPhoto">
+            <label for="favourites">Only favourites</label>
+            <input type="checkbox" name="favourites" id="favourites">
+        </form>
+        <section id="listOfTeachers">
+            <section id="teacher" onclick="openTeacherPopUp()">
+                <img src="https://media.istockphoto.com/photos/math-teacher-in-the-classroom-picture-id1358852926?k=20&m=1358852926&s=170667a&w=0&h=lbIoa0cSjgtvzcAUO4UqZ4-mGXcQmF3j_zgpmQ3JU60="
+                    alt="teacher photo">
+                <h2>First name</h2>
+                <h2>Surname</h2>
+                <h4>Chemistry</h4>
+                <h5>Ukraine</h5>
+            </section>
+        </section>
+        <hr>
+        <h1>Statistics</h1>
+        <section id="statistics">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td>Speciality</td>
+                    <td>Age</td>
+                    <td>Gender</td>
+                    <td>Nationality</td>
+                </tr>
+                <tr>
+                    <td>Daisy Alexander</td>
+                    <td>Chemistry</td>
+                    <td>28</td>
+                    <td>Female</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>Daisy Alexander</td>
+                    <td>Chemistry</td>
+                    <td>28</td>
+                    <td>Female</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>Daisy Alexander</td>
+                    <td>Chemistry</td>
+                    <td>28</td>
+                    <td>Female</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>Daisy Alexander</td>
+                    <td>Chemistry</td>
+                    <td>28</td>
+                    <td>Female</td>
+                    <td>USA</td>
+                </tr>
+                <tr>
+                    <td>Daisy Alexander</td>
+                    <td>Chemistry</td>
+                    <td>28</td>
+                    <td>Female</td>
+                    <td>USA</td>
+                </tr>
+            </table>
+        </section>
+        <hr>
+        <h1>Favourites</h1>
+        <section id="favourites">
+            <div id="teacher" onclick="openTeacherPopUp()">
+                <img src="https://media.istockphoto.com/photos/math-teacher-in-the-classroom-picture-id1358852926?k=20&m=1358852926&s=170667a&w=0&h=lbIoa0cSjgtvzcAUO4UqZ4-mGXcQmF3j_zgpmQ3JU60="
+                    alt="teacher photo">
+                <h2>First name</h2>
+                <h2>Surname</h2>
+                <h5>Ukraine</h5>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <section class="footerSectionChange">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ipsum nisl, tristique a feugiat
+                porttitor, imperdiet ut justo. Integer quis est vel nunc mollis egestas. In sit amet odio justo.
+                Vivamus
+                quis nulla in magna pretium pulvinar. Maecenas sed convallis sem. Curabitur fermentum leo vitae
+                tellus
+                tristique, sed iaculis augue posuere. Praesent risus sem, facilisis et sagittis ac, auctor ut urna.
+                Suspendisse id felis sit amet lectus aliquam porttitor. Vestibulum sed purus eget augue efficitur
+                efficitur. Maecenas tincidunt mollis tempus. Nullam in condimentum tortor, a euismod dolor.
+                Suspendisse
+                quis elementum lectus, non aliquam felis. Suspendisse ac ultrices elit. Praesent in nulla dapibus,
+                euismod justo et, fermentum massa. Morbi feugiat ullamcorper felis sit amet ultricies. Maecenas
+                varius
+                orci sit amet ante mollis posuere.</p>
+        </section>
+        <section class="footerSectionChange">
+            <nav class="navChange">
+                <ul>
+                    <li>Teacher</li>
+                    <li>Statistics</li>
+                    <li>Favourites</li>
+                    <li>About</li>
+                </ul>
+            </nav>
+            <button type="submit" onclick="openAddTeacherPopUp()">Add teacher</button>
+        </section>
+    </footer>
+    <script>
+        let teacherPopUp = document.getElementById("teacherPopUp")
+        let popUpBackground = document.getElementById("popUpBackground")
+        let addTeacherPopUpContainer = document.getElementById("addTeacherPopUpContainer")
+        let addTeacherPopUp = document.getElementById("addTeacherPopUp")
+
+        function openTeacherPopUp() {
+            teacherPopUp.classList.add("teacherPopUpOpen")
+            popUpBackground.classList.add("active")
+            console.log("WORKING")
+        }
+        function closeTeacherPopUp() {
+            teacherPopUp.classList.remove('teacherPopUpOpen')
+            popUpBackground.classList.remove("active")
+        }
+        function openAddTeacherPopUp() {
+            addTeacherPopUpContainer.classList.add("container-active")
+            addTeacherPopUp.classList.add("active")
+        }
+        function closeAddTeacherPopUp() {
+            addTeacherPopUpContainer.classList.remove("container-active")
+            addTeacherPopUp.classList.remove("active")
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,604 @@
+/* stylelint-disable */
+html,
+body,
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+address,
+big,
+code,
+del,
+dfn,
+em,
+img,
+q,
+s,
+samp,
+small,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+main,
+nav,
+output,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+    margin: 0;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-align: center;
+    line-height: 1.15;
+}
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+a {
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+
+b,
+strong {
+    font-weight: bolder;
+}
+
+small {
+    font-size: 80%;
+}
+
+figure {
+    margin: 1em 40px;
+}
+
+img {
+    border-style: none;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    cursor: pointer;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+textarea {
+    overflow: auto;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+[clear] {
+    clear: both;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+/* Box Model */
+
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/* A better looking default horizontal rule */
+
+hr {
+    display: block;
+    height: 1px;
+    border-top: 1px solid rgb(0, 0, 0);
+}
+
+/* stylelint-enable */
+
+:root {
+    --mainColor: #E76F51;
+    --headings: #9C9C9C;
+}
+
+body {
+    background-color: #F4FAFF;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+header span {
+    font-family: system-ui, -apple-system, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: 0.2rem;
+    color: white;
+    text-shadow: 3px 0.5px black, -3px -0.5px var(--mainColor);
+
+}
+
+header section {
+    margin-left: 15%;
+    margin-right: 15%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+header form input {
+    min-width: 100px;
+    min-height: 45px;
+    margin: 15px;
+}
+
+nav {
+    display: inline;
+    min-width: 500px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--mainColor);
+}
+
+
+
+nav ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 970px) {
+    .navChange {
+        min-width: 400px;
+        display: block;
+    }
+
+    hr {
+        width: 35%;
+    }
+
+    .teacherFormChange {
+        margin: 20px 0px 0px;
+        padding-left: 0px;
+    }
+
+    .sectionChange {
+        margin: 20px 0px 0px;
+    }
+
+    .footerSectionChange {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+
+    footer button {
+        margin-left: 20px;
+    }
+
+    header button {
+        margin-left: 20px;
+    }
+}
+
+
+#mainHeading {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.container {
+    z-index: 1000;
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+}
+
+.container-active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#addTeacherPopUp {
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    min-width: 500px;
+    max-width: 80%;
+    padding: 15px;
+}
+
+#addTeacherPopUp.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+
+.header {
+    border-radius: inherit;
+    height: 30px;
+    background-color: var(--headings);
+}
+
+.header-span {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: white;
+    float: left;
+    padding: 1%;
+}
+
+.header-image {
+    padding-top: 1%;
+    padding-right: 1%;
+    width: 24px;
+    height: 24px;
+    float: right;
+}
+
+.form {
+    background-color: white;
+}
+
+.entry-label {
+    display: flex;
+}
+
+.entry-non-flex-label {
+    padding-right: 15%;
+}
+
+.input-field-single {
+    width: 100%;
+}
+
+.input-field-double {
+    width: 100%;
+}
+
+.input-field-double-right {
+    float: right;
+    width: 100%;
+}
+
+
+.unit-block {
+    width: 45%;
+}
+
+.unit-block-non-flex {
+    width: 45%;
+    text-align: start;
+}
+
+.gender-container {
+    display: inline-block;
+}
+
+.row-single-unit {
+    margin-top: 10px;
+}
+
+.row-double-unit {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+
+
+.teacherPopUp {
+    z-index: 1000;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    width: 700px;
+    max-width: 80%;
+}
+
+#popUpBackground {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+}
+
+#popUpBackground.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.teacherPopUp section {
+    background-color: white;
+}
+
+
+.teacherPopUpOpen {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.classTest {
+    margin: 50px;
+}
+
+#teacherPopUp img {
+    margin-left: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
+    max-width: 350px;
+    height: 250px;
+    float: left;
+}
+
+#teacherPopUp p {
+    float: right;
+}
+
+#teacherPopUp>div {
+    border-radius: inherit;
+    height: 30px;
+    background-color: var(--headings);
+}
+
+#teacherPopUp>div>span {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: white;
+    float: left;
+    padding: 1%;
+}
+
+#teacherPopUp a {
+    color: #2FE6DE;
+}
+
+#teacherPopUp #googleMaps {
+    float: left;
+    border-bottom: 1px dotted #2FE6DE;
+}
+
+
+
+
+#teacherPopUp>div>img {
+    padding-top: 1%;
+    padding-right: 1%;
+    width: 24px;
+    height: 24px;
+    float: right;
+}
+
+
+button {
+    font-size: 1.2rem;
+    border: 1px solid var(--mainColor);
+    color: var(--mainColor);
+    min-width: 150px;
+    min-height: 45px;
+}
+
+form button {
+    font-size: 0.8rem;
+    border: 1px solid var(--mainColor);
+    color: var(--mainColor);
+    min-width: 100px;
+    min-height: 45px;
+}
+
+hr {
+    height: 2px;
+    max-width: 500px;
+    background: black;
+    margin: auto;
+}
+
+main {
+    display: grid;
+}
+
+main img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid var(--mainColor);
+}
+
+main section {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+main form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    padding-left: 15%;
+}
+
+main form label {
+    margin-right: 15px;
+    color: var(--headings);
+}
+
+main form select {
+    margin-right: 15px;
+
+}
+
+
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+h4 {
+    color: var(--headings);
+}
+
+h5 {
+    font-size: 0.9rem;
+}
+
+table {
+    margin: auto;
+    width: 70%;
+}
+
+tr:first-of-type {
+    border-bottom: 1px solid black;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+td {
+    padding: 5px;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+
+footer section {
+    padding-left: 15%;
+    padding-right: 15%;
+    display: flex;
+    justify-content: space-between;
+}
