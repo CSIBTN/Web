@@ -289,53 +289,161 @@ nav ul {
     justify-content: space-between;
 }
 
-#addTeacherPopUp {
-    width: 300px;
-    height: 500px;
-    margin: auto;
-    border-radius: 3px;
+.container {
+    z-index: 1000;
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
 }
 
-#addTeacherPopUp label {
-    display: flex;
-    margin-top: 20px;
-    font-size: 18px;
+.container-active {
+    opacity: 1;
+    pointer-events: all;
 }
+
+#addTeacherPopUp {
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    min-width: 500px;
+    max-width: 80%;
+    padding: 15px;
+}
+
+#addTeacherPopUp.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+
+
+.header {
+    border-radius: inherit;
+    height: 30px;
+    background-color: var(--headings);
+}
+
+.header-span {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: white;
+    float: left;
+    padding: 1%;
+}
+
+.header-image {
+    padding-top: 1%;
+    padding-right: 1%;
+    width: 24px;
+    height: 24px;
+    float: right;
+}
+
+.form {
+    background-color: white;
+}
+
+.entry-label {
+    display: flex;
+}
+
+.entry-non-flex-label {
+    padding-right: 15%;
+}
+
+.input-field-single {
+    width: 100%;
+}
+
+.input-field-double {
+    width: 100%;
+}
+
+.input-field-double-right {
+    float: right;
+    width: 100%;
+}
+
+
+.unit-block {
+    width: 45%;
+}
+
+.unit-block-non-flex {
+    width: 45%;
+    text-align: start;
+}
+
+.gender-container {
+    display: inline-block;
+}
+
+.row-single-unit {
+    margin-top: 10px;
+}
+
+.row-double-unit {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+
 
 .teacherPopUp {
-    z-index: 10000;
-    width: 600px;
-    height: 500px;
-    visibility: hidden;
-    margin: auto;
-    position: absolute;
-    height: 20px;
+    z-index: 1000;
+    position: fixed;
     display: flex;
-    top: 0;
-    text-align: center;
     flex-direction: column;
-    align-items: center;
-    transform: translate(100%, 50%);
-    transition: transform 0.4, 0.4;
+    flex-wrap: nowrap;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: white;
+    width: 700px;
+    max-width: 80%;
 }
 
-.popUpBackground {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 9999;
-    background-color: rgba(204, 205, 207, 0.8);
+#popUpBackground {
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
+}
+
+#popUpBackground.active {
+    opacity: 1;
+    pointer-events: all;
 }
 
 .teacherPopUp section {
     background-color: white;
 }
 
-.teacherPopUpOpenForeground {}
 
 .teacherPopUpOpen {
-    visibility: visible;
-    top: 25%;
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .classTest {
@@ -343,6 +451,9 @@ nav ul {
 }
 
 #teacherPopUp img {
+    margin-left: 5px;
+    margin-top: 5px;
+    border-radius: 5px;
     max-width: 350px;
     height: 250px;
     float: left;
@@ -353,7 +464,7 @@ nav ul {
 }
 
 #teacherPopUp>div {
-    width: inherit;
+    border-radius: inherit;
     height: 30px;
     background-color: var(--headings);
 }
