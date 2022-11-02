@@ -1873,6 +1873,8 @@ let additionalUsers = [
 
 
 function organizeArray() {
+    let courses = ["Mathematics", "Physics", "English", "Computer Science", "Dancing", "Chess", "Biology", "Chemistry",
+        "Law", "Art", "Medicine", "Statistics"]
     randomUserMock = randomUserMock.map(function teacherMapper(teacher) {
         return {
             "gender": teacher.gender,
@@ -1889,10 +1891,16 @@ function organizeArray() {
             "age": teacher.dob.age,
             "phone": teacher.phone,
             "picture_large": teacher.picture.large,
-            "picture_thumbnail": teacher.picture.thumbnail
+            "picture_thumbnail": teacher.picture.thumbnail,
+            "id": teacher.id.value === null ? `${Math.floor(Math.random() * randomUserMock.length)}` : teacher.id.value,
+            "favourite": (Math.floor(Math.random() * 2) == 0 ? true : false), // If 0 true else false
+            "course": courses[(Math.floor(Math.random() * courses.length))], // Random pick from the courses array
+            "bg_color": `#${Math.floor(Math.random() * 16777215).toString(16)}`,
+            "note": (Math.random() + 100).toString(36)
         }
     }
     )
+    randomUserMock = randomUserMock.concat(additionalUsers)
 
     return randomUserMock
 }
