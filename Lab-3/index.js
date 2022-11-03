@@ -1902,5 +1902,94 @@ function organizeArray() {
     )
     randomUserMock = randomUserMock.concat(additionalUsers)
 
-    return randomUserMock
+}
+
+function validateArray(teacher) {
+    if (typeof (teacher.full_name) !== "string" && teacher.full_name[0] !== teacher.full_name[0].toUpperCase())
+        return false
+    if (typeof (teacher.gender) !== "string" && teacher.gender[0] !== teacher.gender[0].toUpperCase())
+        return false
+    if (typeof (teacher.note) !== "string" && teacher.note[0] !== teacher.note[0].toUpperCase())
+        return false
+    if (typeof (teacher.state) !== "string" && teacher.state[0] !== teacher.state[0].toUpperCase())
+        return false
+    if (typeof (teacher.city) !== "string" && teacher.city[0] !== teacher.city[0].toUpperCase())
+        return false
+    if (typeof (teacher.country) !== "string" && teacher.country[0] !== teacher.country[0].toUpperCase())
+        return false
+    if (typeof (teacher.age) !== "number")
+        return false
+    if (!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(teacher.email))
+        return false
+    if (!/^[\+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{2,9}[-\s\.]?([0-9]{4,6})?$/.test(teacher.phone.toString()))
+        return false
+    return true
+}
+function filter(key, options = { greaterThen, greaterThenEquals, lessThen, lessThenEquals, includes, equalTo }) { // options{greaterThen , greaterThenEquals, lessThen, lessThenEquals, includes, equalTo}
+    return randomUserMock.filter(function filtering(teacher) {
+        if (options.greaterThen !== undefined) {
+            return teacher[key] > options.greaterThen;
+        } else if (options.greaterThenEquals !== undefined) {
+            return teacher[key] >= options.greaterThen;
+        } else if (options.lessThen !== undefined) {
+            return teacher[key] < options.lessThen
+        } else if (options.lessThenEquals !== undefined) {
+            return teacher[key] <= options.lessThenEquals
+        } else if (options.includes !== undefined) {
+            if (typeof (teacher[key]) === "string")
+                return teacher[key].includes(`${includes}`)
+            return false
+        } else if (options.equalTo !== undefined) {
+            return teacher[key] === options.equalTo
+        }
+    })
+}
+
+function sort(key, options = { ordered }) {
+    return randomUserMock.sort(function sorting(teacher1, teacher2) {
+        if (options.ordered) {
+            if (teacher1[key] < teacher2[key])
+                return -1
+            else if (teacher1[key] > teacher2[key])
+                return 1
+            else {
+                return 0
+            }
+        } else {
+            if (teacher1[key] < teacher2[key])
+                return 1
+            else if (teacher1[key] > teacher2[key])
+                return -1
+            else {
+                return 0
+            }
+        }
+    })
+}
+
+function find(key, value) {
+    return randomUserMock.find(function predicate(teacher) {
+        return teacher[key] === value
+    })
+}
+
+function filterWithPercantage(key, options = { greaterThen, greaterThenEquals, lessThen, lessThenEquals, includes, equalTo }) {
+    let filteredArray = randomUserMock.filter(function filtering(teacher) {
+        if (options.greaterThen !== undefined) {
+            return teacher[key] > options.greaterThen;
+        } else if (options.greaterThenEquals !== undefined) {
+            return teacher[key] >= options.greaterThen;
+        } else if (options.lessThen !== undefined) {
+            return teacher[key] < options.lessThen
+        } else if (options.lessThenEquals !== undefined) {
+            return teacher[key] <= options.lessThenEquals
+        } else if (options.includes !== undefined) {
+            if (typeof (teacher[key]) === "string")
+                return teacher[key].includes(`${includes}`)
+            return false
+        } else if (options.equalTo !== undefined) {
+            return teacher[key] === options.equalTo
+        }
+    })
+    return `${Math.round(100.0 * filteredArray.length / randomUserMock.length)}%`
 }
