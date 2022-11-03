@@ -1900,6 +1900,35 @@ function organizeArray() {
         }
     }
     )
+
+    additionalUsers = additionalUsers.map(function mapper(teacher) {
+        let randomPhotoId = Math.floor(Math.random() * 200 + 50)
+        return {
+            "gender": teacher.gender,
+            "title": teacher.title,
+            "full_name": teacher.full_name,
+            "city": teacher.city,
+            "country": teacher.country,
+            "postcode": teacher.postcode,
+            "coordinates": {
+                "latitude": teacher.location !== undefined ? teacher.location.coordinates.latitude : randomUserMock[Math.floor(Math.random() * randomUserMock.length)].coordinates.latitude,
+                "longitude": teacher.location !== undefined ? teacher.location.coordinates.longitude : randomUserMock[Math.floor(Math.random() * randomUserMock.length)].coordinates.longitude
+            },
+            "timezone": {
+                "offset": teacher.timezone !== undefined ? teacher.timezone.offset : randomUserMock[Math.floor(Math.random() * randomUserMock.length)].timezone.offset,
+                "longitude": teacher.timezone !== undefined ? teacher.timezone.description : randomUserMock[Math.floor(Math.random() * randomUserMock.length)].timezone.description
+            },
+            "state": randomUserMock[Math.floor(Math.random() * randomUserMock.length)].state,
+            "email": randomUserMock[Math.floor(Math.random() * randomUserMock.length)].email,
+            "b_date": randomUserMock[Math.floor(Math.random() * randomUserMock.length)].b_date,
+            "age": randomUserMock[Math.floor(Math.random() * randomUserMock.length)].age,
+            "phone": randomUserMock[Math.floor(Math.random() * randomUserMock.length)].phone,
+            "picture_large": `https://randomuser.me/api/portraits/${teacher.gender === "male" ? "men" : "female"}/${randomPhotoId}.jpg`,
+            "picture_thumbnail": `https://randomuser.me/api/portraits/${teacher.gender === "male" ? "men" : "female"}/${randomPhotoId}.jpg`
+        }
+    })
+
+
     randomUserMock = randomUserMock.concat(additionalUsers)
 
 }
@@ -1969,7 +1998,7 @@ function sort(key, options = { ordered }) {
 
 function find(key, value) {
     return randomUserMock.find(function predicate(teacher) {
-        return teacher[key] === value
+        return teacher[key] === value ? true : teacher[key].includes(value)
     })
 }
 
