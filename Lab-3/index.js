@@ -33,8 +33,8 @@ function organizeTeachers() {
             "gender": teacher.gender,
             "title": teacher.title,
             "full_name": teacher.full_name,
-            "city": teacher.city,
-            "country": teacher.country,
+            "city": teacher.city === undefined ? randomUserMock[randomTeacher()].city : teacher.city,
+            "country": teacher.country === undefined ? randomUserMock[randomTeacher()].country : teacher.country,
             "postcode": teacher.postcode,
             "coordinates": {
                 "latitude": teacher.location !== undefined ? teacher.location.coordinates.latitude : randomUserMock[randomTeacher()].coordinates.latitude,
