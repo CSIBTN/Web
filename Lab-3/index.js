@@ -81,7 +81,6 @@ function checkIfEqual(teacher1, teacher2) {
 }
 
 function validateTeacher(teacher) {
-    isValid = true;
     if (typeof (teacher.full_name) !== "string" || teacher.full_name[0] !== teacher.full_name[0].toUpperCase())
         return false
     if (typeof (teacher.gender) !== "string" || teacher.gender[0] !== teacher.gender[0].toUpperCase())
@@ -98,7 +97,7 @@ function validateTeacher(teacher) {
         return false
     if (!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(teacher.email))
         return false
-    if (!/^[\+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{2,9}[-\s\.]?([0-9]{4,6})?$/.test(teacher.phone.toString()))
+    if (!/^[\+]?[(]?[0-9]{2,9}[)]?[-\s\.]?[0-9]{2,9}[-\s\.]?([0-9]{2,9})?$/.test(teacher.phone.toString()))
         return false
     return true
 }
