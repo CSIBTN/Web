@@ -151,23 +151,7 @@ function find(key, value) {
 }
 
 function filterWithPercantage(key, options = { greaterThen, greaterThenEquals, lessThen, lessThenEquals, includes, equalTo }) {
-    let filteredArray = randomUserMock.filter(function filtering(teacher) {
-        if (options.greaterThen !== undefined) {
-            return teacher[key] > options.greaterThen;
-        } else if (options.greaterThenEquals !== undefined) {
-            return teacher[key] >= options.greaterThen;
-        } else if (options.lessThen !== undefined) {
-            return teacher[key] < options.lessThen
-        } else if (options.lessThenEquals !== undefined) {
-            return teacher[key] <= options.lessThenEquals
-        } else if (options.includes !== undefined) {
-            if (typeof (teacher[key]) === "string")
-                return teacher[key].includes(`${includes}`)
-            return false
-        } else if (options.equalTo !== undefined) {
-            return teacher[key] === options.equalTo
-        }
-    })
+    let filteredArray = filter(key, options)
     return `${Math.round(100.0 * filteredArray.length / randomUserMock.length)}%`
 }
 
