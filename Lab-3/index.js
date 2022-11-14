@@ -84,15 +84,15 @@ function validateTeacher(teacher) {
     isValid = true;
     if (typeof (teacher.full_name) !== "string" || teacher.full_name[0] !== teacher.full_name[0].toUpperCase())
         return false
-    if (typeof (teacher.gender) !== "string" && teacher.gender[0] !== teacher.gender[0].toUpperCase())
+    if (typeof (teacher.gender) !== "string" || teacher.gender[0] !== teacher.gender[0].toUpperCase())
         return false
-    if (typeof (teacher.note) !== "string" && teacher.note[0] !== teacher.note[0].toUpperCase())
+    if (typeof (teacher.note) !== "string" || teacher.note[0] !== teacher.note[0].toUpperCase())
         return false
-    if (typeof (teacher.state) !== "string" && teacher.state[0] !== teacher.state[0].toUpperCase())
+    if (typeof (teacher.state) !== "string" || teacher.state[0] !== teacher.state[0].toUpperCase())
         return false
-    if (typeof (teacher.city) !== "string" && teacher.city[0] !== teacher.city[0].toUpperCase())
+    if (typeof (teacher.city) !== "string" || teacher.city[0] !== teacher.city[0].toUpperCase())
         return false
-    if (typeof (teacher.country) !== "string" && teacher.country[0] !== teacher.country[0].toUpperCase())
+    if (typeof (teacher.country) !== "string" || teacher.country[0] !== teacher.country[0].toUpperCase())
         return false
     if (typeof (teacher.age) !== "number")
         return false

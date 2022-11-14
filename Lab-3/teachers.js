@@ -1,6 +1,6 @@
 let randomUserMock = [
     {
-        gender: "male",
+        gender: 1,
         name: { title: "Mr", first: "Norbert", last: "Weishaupt" },
         location: {
             street: { number: 5597, name: "Mittelstraße" },
