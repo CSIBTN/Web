@@ -383,11 +383,21 @@ main form select {
 
 }
 
-.arrowIcon {
+.arrowIconLeft {
+    margin-left: 1%;
     width: 50px;
     height: 50px;
     border: 0px;
-    margin: auto;
+    float: left;
+}
+
+.arrowIconRight {
+    margin-right: 1%;
+    width: 50px;
+    height: 50px;
+    border: 0px;
+    float: right;
+
 }
 
 
@@ -397,9 +407,28 @@ main form select {
     margin-right: 15px;
 }
 
-.favouritesSection {
+.topTeacher {
+    flex: 1 0 21%;
+}
+
+.teachersList {
     display: flex;
-    flex-flow: row nowrap;
+    flex-wrap: wrap;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.favouritesSection {
+    margin: auto;
+    width: 100%;
+    display: flex;
+}
+
+.teacherFavouriteSection {
+    margin: auto;
+    display: flex;
+    width: 70%;
+    flex-wrap: wrap;
 }
 
 

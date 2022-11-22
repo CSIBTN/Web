@@ -1,3 +1,6 @@
+
+organizeTeachers()
+
 function organizeTeachers() {
     let courses = ["Mathematics", "Physics", "English", "Computer Science", "Dancing", "Chess", "Biology", "Chemistry",
         "Law", "Art", "Medicine", "Statistics"]
@@ -48,6 +51,7 @@ function organizeTeachers() {
             "email": randomUserMock[randomTeacher()].email,
             "b_date": randomUserMock[randomTeacher()].b_date,
             "age": randomUserMock[randomTeacher()].age,
+            "course": courses[(Math.floor(Math.random() * courses.length))],
             "phone": randomUserMock[randomTeacher()].phone,
             "picture_large": `https://randomuser.me/api/portraits/${teacher.gender === "male" ? "men" : "female"}/${randomPhotoId}.jpg`,
             "picture_thumbnail": `https://randomuser.me/api/portraits/${teacher.gender === "male" ? "men" : "female"}/${randomPhotoId}.jpg`

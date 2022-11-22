@@ -1,8 +1,21 @@
-showTopTeachers()
-showTeacherStatistics()
 
-function showTopTeachers() {
+showTopTeachers()
+
+showTeacherStatistics()
+setTableListeners()
+
+let favouritesShownCount = 0;
+showFavouriteTeachers()
+favouriteSlides()
+
+function showTopTeachers(teachers) {
     let listOfTeacher = document.getElementById("listOfTopTeachers")
+    let arrayOfTeachers
+    if (teachers !== undefined)
+        arrayOfTeachers = teachers
+    else arrayOfTeachers = randomUserMock
+
+
     for (teacher of randomUserMock) {
         let teacherSection = document.createElement("section")
 
@@ -34,9 +47,11 @@ function showTopTeachers() {
     }
 }
 
-function showTeacherStatistics() {
-    let statisticsTable = document.querySelector("table")
-
+function showTeacherStatistics(sortKey) {
+    let statisticsTable = document.querySelector("tbody")
+    statisticsTable.innerHTML = ''
+    sortedTeachers = sort(sortKey, { ordered: true })
+    statisticsTable.insertRow()
     for (let i = 0; i < 5; i++) {
         let currentRow = statisticsTable.insertRow()
 
@@ -46,6 +61,98 @@ function showTeacherStatistics() {
         currentRow.insertCell().innerText = randomUserMock[i].gender
         currentRow.insertCell().innerText = randomUserMock[i].country
     }
+}
+
+
+function showFavouriteTeachers(startingPosition) {
+
+    let favoriteTeachers = filter("favourite", { equalTo: true })
+    if (startingPosition === undefined)
+        startingPosition = 0
+
+
+    let newListToAppend = document.createDocumentFragment()
+    let listOfFavourites = document.getElementById("teacherFavouriteSection")
+    for (let i = startingPosition; i < startingPosition + 4; i++) {
+        console.log(i)
+        let teacherSection = document.createElement("section")
+
+        let teacherPhoto = document.createElement("img")
+        teacherPhoto.setAttribute("src", favoriteTeachers[i].picture_thumbnail)
+
+        let nameArr = favoriteTeachers[i].full_name.split(" ")
+
+        let firstName = document.createElement("span")
+        firstName.innerText = nameArr[0]
+        firstName.classList.add("teacherSpan", "teacherName")
+
+        let lastName = document.createElement("span")
+        lastName.innerText = nameArr[1]
+        lastName.classList.add("teacherSpan", "teacherName")
+
+        let country = document.createElement("span")
+        country.innerText = favoriteTeachers[i].country
+        country.classList.add("teacherSpan")
+
+        teacherSection.append(teacherPhoto, firstName, lastName, country)
+        teacherSection.classList.add("topTeacher")
+        teacherSection.addEventListener("click", () => { openTeacherPopUp() })
+        newListToAppend.appendChild(teacherSection)
+
+        favouritesShownCount++;
+    }
+    listOfFavourites.replaceChildren(...newListToAppend.children)
+}
+
+function favouriteSlides() {
+    let arrowLeftSlide = document.getElementById("arrowIconLeft")
+    let arrowRightSlide = document.getElementById("arrowIconRight")
+
+    arrowLeftSlide.addEventListener("click",
+        () => {
+            if (favouritesShownCount - 5 >= 0) {
+                console.log(`${favouritesShownCount} : count value`)
+                favouritesShownCount--;
+                showFavouriteTeachers(favouritesShownCount -= 4)
+            }
+        }
+    )
+    arrowRightSlide.addEventListener("click",
+        () => {
+            if (favouritesShownCount < 10) {
+                favouritesShownCount++;
+                showFavouriteTeachers(favouritesShownCount -= 4)
+            }
+        }
+    )
+}
+
+function setTableListeners() {
+    let nameColumn = document.getElementById("name_column")
+    nameColumn.addEventListener("click",
+        () => {
+            showTeacherStatistics("full_name")
+        })
+    let courseColumn = document.getElementById("course_column")
+    courseColumn.addEventListener("click",
+        () => {
+            showTeacherStatistics("course")
+        })
+    let ageColumn = document.getElementById("age_column")
+    ageColumn.addEventListener("click",
+        () => {
+            showTeacherStatistics("age")
+        })
+    let genderColumn = document.getElementById("gender_column")
+    genderColumn.addEventListener("click",
+        () => {
+            showTeacherStatistics("gender")
+        })
+    let countryColumn = document.getElementById("country_column")
+    countryColumn.addEventListener("click",
+        () => {
+            showTeacherStatistics("country")
+        })
 
 }
 
