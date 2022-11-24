@@ -1,22 +1,25 @@
 
 showTopTeachers()
-
 showTeacherStatistics()
 setTableListeners()
 
 let favouritesShownCount = 0;
 showFavouriteTeachers()
 favouriteSlides()
+formTopTeachersListeners()
+
+addTeacher()
 
 function showTopTeachers(teachers) {
     let listOfTeacher = document.getElementById("listOfTopTeachers")
+    listOfTeacher.innerHTML = ''
     let arrayOfTeachers
-    if (teachers !== undefined)
-        arrayOfTeachers = teachers
-    else arrayOfTeachers = randomUserMock
+    if (teachers === undefined)
+        arrayOfTeachers = randomUserMock
+    else arrayOfTeachers = teachers
 
 
-    for (teacher of randomUserMock) {
+    for (teacher of arrayOfTeachers) {
         let teacherSection = document.createElement("section")
 
         let teacherPhoto = document.createElement("img")
@@ -155,5 +158,87 @@ function setTableListeners() {
         })
 
 }
+
+function addTeacher() {
+    document.getElementById("addTeacherBtn").addEventListener("click",
+        (event) => {
+            event.preventDefault()
+            let name = document.getElementById("name").value
+
+            let gender = document.getElementById("male")
+            if (gender.checked) {
+                gender = "male"
+            } else {
+                gender = "female"
+            }
+            let city = document.getElementById("city").value
+
+            let country = document.getElementById("country")
+            country = country.options[country.selectedIndex].value
+
+            let course = document.getElementById("speciality")
+            course = course.options[course.selectedIndex].value
+
+            let email = document.getElementById("email").value
+            let phone = document.getElementById("phone").value
+            let date = document.getElementById("birth").value
+            let age = 2022 - date.split("-")[0]
+            let bgColor = document.getElementById("bgColor")
+            let notes = document.getElementById("notes")
+
+
+            let teacher = {
+                "full_name": name,
+                "city": city,
+                "country": country,
+                "email": email,
+                "b_date": date,
+                "age": age,
+                "phone": phone,
+                "id": randomTeacher() + 250,
+                "favourite": (Math.floor(Math.random() * 2) == 0 ? true : false), // If 0 true else false
+                "course": course, // Random pick from the courses array
+                "bg_color": bgColor,
+                "note": notes
+            }
+            randomUserMock.push(teacher)
+            closeAddTeacherPopUp()
+            showTopTeachers()
+        }
+    )
+
+}
+
+function formTopTeachersListeners() {
+    let newListOfTeachers
+    let age = document.getElementById("ageSearch")
+    age.addEventListener('change',
+        () => {
+            let value = age.options[age.selectedIndex].value
+            console.log(value)
+            let lowerBound = value.split("-")[0]
+            console.log(lowerBound)
+            let upperBound = value.split("-")[1]
+            console.log(upperBound)
+            newListOfTeachers = filter("age", { greaterThenEqualsLessThenEquals: [lowerBound, upperBound] })
+            showTopTeachers(newListOfTeachers)
+        }, false)
+
+    let region = document.getElementById("region")
+    region.addEventListener('change',
+        () => {
+            let value = region.options[region.selectedIndex].value
+            newListOfTeachers = filter("country", { equalTo: value })
+            showTopTeachers(newListOfTeachers)
+        })
+    let sex = document.getElementById("sex")
+    sex.addEventListener('change',
+        () => {
+            let value = sex.options[sex.selectedIndex].value
+            newListOfTeachers = filter("gender", { equalTo: value })
+            showTopTeachers(newListOfTeachers)
+        })
+}
+
 
 
