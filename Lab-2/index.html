@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teachinder</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../Lab-3/teachers.js"></script>
     <script src="../Lab-3/index.js"></script>
 </head>
@@ -23,46 +24,48 @@
             <form id="addTeacherForm" action="POST">
                 <div class="row-single-unit">
                     <label class="entry-label" for="name">Name</label>
-                    <input class="input-field-single" type="text" name="name" id="name">
+                    <input class="input-field-single" type="text" name="name" id="name" required>
                 </div>
                 <div class="row-single-unit">
                     <label class="entry-label" for="speciality">Speciality</label>
-                    <select class="input-field-single" name="speciality" id="speciality">
-                        <option value="math">Mathematics</option>
-                        <option value="english">English</option>
-                        <option value="programming">Programming</option>
-                        <option value="music">Music</option>
-                        <option value="chemistry">Chemistry</option>
+                    <select class="input-field-single" name="speciality" id="speciality" required>
+                        <option value="Math">Mathematics</option>
+                        <option value="English">English</option>
+                        <option value="Programming">Programming</option>
+                        <option value="Music">Music</option>
+                        <option value="Chemistry">Chemistry</option>
                     </select>
                 </div>
                 <div class="row-double-unit">
                     <div class="unit-block">
                         <label class="entry-label" for="country">Country</label>
-                        <select class="input-field-double" name="country" id="country">
-                            <option value="ua">Ukraine</option>
-                            <option value="ua">Ukraine</option>
-                            <option value="ua">Ukraine</option>
+                        <select class="input-field-double" name="country" id="country" required>
+                            <option value="Ukraine">Ukraine</option>
+                            <option value="USA">USA</option>
+                            <option value="The Netherland">The Netherlands</option>
                         </select>
                     </div>
                     <div class="unit-block">
                         <label class="entry-label" for="city">City</label>
-                        <input class="input-field-double input-field-double-right" type="text" name="city" id="city">
+                        <input class="input-field-double input-field-double-right" type="text" name="city" id="city"
+                            required>
                     </div>
                 </div>
                 <div class="row-double-unit">
                     <div class="unit-block">
                         <label class="entry-label" for="email">Email</label>
-                        <input class="input-field-double" type="email" name="email" id="email">
+                        <input class="input-field-double" type="email" name="email" id="email" required>
                     </div>
                     <div class="unit-block">
                         <label class="entry-label" for="phone">Phone</label>
-                        <input class="entry-label input-field-double-right" type="number" name="phone" id="phone">
+                        <input class="entry-label input-field-double-right" type="number" name="phone" id="phone"
+                            required>
                     </div>
                 </div>
                 <div class="row-double-unit">
                     <div class="unit-block">
                         <label class="entry-label" for="birth">Date of birth</label>
-                        <input class="input-field-double" type="date" name="birth" id="birth">
+                        <input class="input-field-double" type="date" name="birth" id="birth" required>
                     </div>
                 </div>
                 <div class="row-double-unit">
@@ -80,14 +83,14 @@
                 <div class="row-double-unit">
                     <div class="unit-block-non-flex">
                         <label class="entry-non-flex-label" bgColor">Background color</label>
-                        <input type="color" name="bgColor" id="bgColor">
+                        <input type="color" name="bgColor" id="bgColor" required>
                     </div>
                 </div>
                 <div class="row-single-unit">
                     <label class="entry-label" for="notes">Notes (optional)</label>
-                    <textarea class="input-field-single" notes" id="notes" cols="30" rows="10"></textarea>
+                    <textarea class="input-field-single" notes" id="notes" cols="30" rows="10" required></textarea>
                 </div>
-                <button>Add</button>
+                <button id="addTeacherBtn">Add</button>
             </form>
         </section>
     </section>
@@ -148,27 +151,27 @@
         <h1>Top Teachers</h1>
         <form class="teacherFormChange">
             <label for="age">Age</label>
-            <select name="age" id="age">
-                <option value="young">18-26</option>
-                <option value="middle">26-36</option>
-                <option value="senior">36-50</option>
-                <option value="professional">50-65</option>
+            <select name="age" id="ageSearch">
+                <option value="18-26">18-26</option>
+                <option value="26-36">26-36</option>
+                <option value="36-50">36-50</option>
+                <option value="50-65">50-65</option>
             </select>
             <label for="region">Region</label>
-            <select name="age" id="region">
-                <option value="AF">Africa</option>
-                <option value="AS">Asia</option>
-                <option value="C">Caribbean</option>
-                <option value="CA">Central America</option>
-                <option value="E">Europe</option>
-                <option value="NA">North America</option>
-                <option value="O">Oceania</option>
-                <option value="SA">South America</option>
+            <select name="region" id="region">
+                <option value="Canada">Canada</option>
+                <option value="United States">United States</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="Poland">Poland</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Iran">Iran</option>
+                <option value="France">France</option>
+                <option value="Switzerland">Switzerland</option>
             </select>
             <label for="sex">Sex</label>
             <select name="age" id="sex">
-                <option value="M">Male</option>
-                <option value="F">Female</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
                 <option value="other">Other</option>
             </select>
             <label for="withPhoto">Only with photo</label>
@@ -195,11 +198,11 @@
                 <tbody></tbody>
             </table>
             <span style="float: left;">
-                <a href="">1</a>
-                <a href="">2</a>
-                <a href="">3</a>
+                <a id="firstPage" href="">1</a>
+                <a id="secondPage" href="">2</a>
+                <a id="thirdPage" class="page" href="">3</a>
                 ...
-                <a href="">last</a>
+                <a id="lastPage" href="">last</a>
             </span>
         </section>
         <hr>
@@ -264,6 +267,8 @@
             addTeacherPopUp.classList.remove("active")
         }
     </script>
+    <script src="../TEST/test.js"></script>
+    <script src="../Lab-5/api.js"></script>
     <script src="../Lab-4/dynamics.js"></script>
 </body>
 

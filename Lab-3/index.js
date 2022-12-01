@@ -1,10 +1,14 @@
 
 organizeTeachers()
 
-function organizeTeachers() {
+function organizeTeachers(teachers) {
+    if (teachers == undefined || teachers == []) {
+        randomUserMock = organizeTeachers(randomUserMock)
+        return
+    }
     let courses = ["Mathematics", "Physics", "English", "Computer Science", "Dancing", "Chess", "Biology", "Chemistry",
         "Law", "Art", "Medicine", "Statistics"]
-    randomUserMock = randomUserMock.map(function teacherMapper(teacher) {
+    teachers = teachers.map(function teacherMapper(teacher) {
         return {
             "gender": teacher.gender,
             "title": teacher.name.title,
@@ -21,7 +25,7 @@ function organizeTeachers() {
             "phone": teacher.phone,
             "picture_large": teacher.picture.large,
             "picture_thumbnail": teacher.picture.thumbnail,
-            "id": teacher.id.value === null ? `${randomTeacher()}}` : teacher.id.value,
+            "id": teacher.id.value === null ? `${randomTeacher(teachers)}}` : teacher.id.value,
             "favourite": (Math.floor(Math.random() * 2) == 0 ? true : false), // If 0 true else false
             "course": courses[(Math.floor(Math.random() * courses.length))], // Random pick from the courses array
             "bg_color": `#${Math.floor(Math.random() * 16777215).toString(16)}`,
@@ -36,30 +40,30 @@ function organizeTeachers() {
             "gender": teacher.gender,
             "title": teacher.title,
             "full_name": teacher.full_name,
-            "city": teacher.city === undefined ? randomUserMock[randomTeacher()].city : teacher.city,
-            "country": teacher.country === undefined ? randomUserMock[randomTeacher()].country : teacher.country,
+            "city": teacher.city === undefined ? teachers[randomTeacher(teachers)].city : teacher.city,
+            "country": teacher.country === undefined ? teachers[randomTeacher(teachers)].country : teacher.country,
             "postcode": teacher.postcode,
             "coordinates": {
-                "latitude": teacher.location !== undefined ? teacher.location.coordinates.latitude : randomUserMock[randomTeacher()].coordinates.latitude,
-                "longitude": teacher.location !== undefined ? teacher.location.coordinates.longitude : randomUserMock[randomTeacher()].coordinates.longitude
+                "latitude": teacher.location !== undefined ? teacher.location.coordinates.latitude : teachers[randomTeacher(teachers)].coordinates.latitude,
+                "longitude": teacher.location !== undefined ? teacher.location.coordinates.longitude : teachers[randomTeacher(teachers)].coordinates.longitude
             },
             "timezone": {
-                "offset": teacher.timezone !== undefined ? teacher.timezone.offset : randomUserMock[randomTeacher()].timezone.offset,
-                "longitude": teacher.timezone !== undefined ? teacher.timezone.description : randomUserMock[randomTeacher()].timezone.description
+                "offset": teacher.timezone !== undefined ? teacher.timezone.offset : teachers[randomTeacher(teachers)].timezone.offset,
+                "longitude": teacher.timezone !== undefined ? teacher.timezone.description : teachers[randomTeacher(teachers)].timezone.description
             },
-            "state": randomUserMock[randomTeacher()].state,
-            "email": randomUserMock[randomTeacher()].email,
-            "b_date": randomUserMock[randomTeacher()].b_date,
-            "age": randomUserMock[randomTeacher()].age,
+            "state": teachers[randomTeacher(teachers)].state,
+            "email": teachers[randomTeacher(teachers)].email,
+            "b_date": teachers[randomTeacher(teachers)].b_date,
+            "age": teachers[randomTeacher(teachers)].age,
             "course": courses[(Math.floor(Math.random() * courses.length))],
-            "phone": randomUserMock[randomTeacher()].phone,
+            "phone": teachers[randomTeacher(teachers)].phone,
             "picture_large": `https://randomuser.me/api/portraits/${teacher.gender === "male" ? "men" : "female"}/${randomPhotoId}.jpg`,
             "picture_thumbnail": `https://randomuser.me/api/portraits/${teacher.gender === "male" ? "men" : "female"}/${randomPhotoId}.jpg`
         }
     })
 
     for (teacherA in additionalUsers) {
-        for (teacherR in randomUserMock) {
+        for (teacherR in teachers) {
             if (checkIfEqual(teacherA, teacherR)) {
                 additionalUsers.pop(teacherA)
                 break
@@ -67,7 +71,8 @@ function organizeTeachers() {
         }
     }
 
-    randomUserMock = randomUserMock.concat(additionalUsers)
+    teachers = teachers.concat(additionalUsers)
+    return teachers
 }
 
 function checkIfEqual(teacher1, teacher2) {
@@ -105,28 +110,32 @@ function validateTeacher(teacher) {
         return false
     return true
 }
-function filter(key, options = { greaterThen, greaterThenEquals, lessThen, lessThenEquals, includes, equalTo }) { // options{greaterThen , greaterThenEquals, lessThen, lessThenEquals, includes, equalTo}
-    return randomUserMock.filter(function filtering(teacher) {
-        if (options.greaterThen !== undefined) {
-            return teacher[key] > options.greaterThen;
-        } else if (options.greaterThenEquals !== undefined) {
-            return teacher[key] >= options.greaterThen;
-        } else if (options.lessThen !== undefined) {
-            return teacher[key] < options.lessThen
-        } else if (options.lessThenEquals !== undefined) {
-            return teacher[key] <= options.lessThenEquals
-        } else if (options.includes !== undefined) {
-            if (typeof (teacher[key]) === "string")
-                return teacher[key].includes(`${includes}`)
-            return false
-        } else if (options.equalTo !== undefined) {
-            return teacher[key] === options.equalTo
-        }
-    })
+function filter(teachers, key, options = { greaterThen, greaterThenEquals, lessThen, lessThenEquals, greaterThenEqualsLessThenEquals, includes, equalTo }) { // options{greaterThen , greaterThenEquals, lessThen, lessThenEquals, includes, equalTo}
+    if (teachers != [] && teachers !== undefined)
+        return teachers.filter(function filtering(teacher) {
+            if (options.greaterThen !== undefined) {
+                return teacher[key] > options.greaterThen;
+            } else if (options.greaterThenEquals !== undefined) {
+                return teacher[key] >= options.greaterThen;
+            } else if (options.lessThen !== undefined) {
+                return teacher[key] < options.lessThen
+            } else if (options.lessThenEquals !== undefined) {
+                return teacher[key] <= options.lessThenEquals
+            } else if (options.greaterThenEqualsLessThenEquals != undefined) {
+                return teacher[key] >= options.greaterThenEqualsLessThenEquals[0] && teacher[key] <= options.greaterThenEqualsLessThenEquals[1]
+            } else if (options.includes !== undefined) {
+                if (typeof (teacher[key]) === "string")
+                    return teacher[key].includes(`${includes}`)
+                return false
+            } else if (options.equalTo !== undefined) {
+                return teacher[key] === options.equalTo
+            }
+        })
+    else return []
 }
 
-function sort(key, options = { ordered }) {
-    return randomUserMock.sort(function sorting(teacher1, teacher2) {
+function sort(teachers, key, options = { ordered }) {
+    return teachers.sort(function sorting(teacher1, teacher2) {
         if (options.ordered) {
             if (teacher1[key] < teacher2[key])
                 return -1
@@ -158,6 +167,6 @@ function filterWithPercantage(key, options = { greaterThen, greaterThenEquals, l
     return `${Math.round(100.0 * filteredArray.length / randomUserMock.length)}%`
 }
 
-function randomTeacher() {
-    return Math.floor(Math.random() * randomUserMock.length);
+function randomTeacher(teachers) {
+    return Math.floor(Math.random() * teachers.length);
 }

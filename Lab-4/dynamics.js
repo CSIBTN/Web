@@ -1,75 +1,107 @@
+setUpUsers()
 
-showTopTeachers()
-showTeacherStatistics()
-setTableListeners()
 
 let favouritesShownCount = 0;
-showFavouriteTeachers()
-favouriteSlides()
-formTopTeachersListeners()
+let globalTeachers = []
+let paginatedTeachers = []
 
-addTeacher()
 
-function showTopTeachers(teachers) {
+function showTopTeachers(teachers, start) {
     let listOfTeacher = document.getElementById("listOfTopTeachers")
     listOfTeacher.innerHTML = ''
     let arrayOfTeachers
     if (teachers === undefined)
         arrayOfTeachers = randomUserMock
     else arrayOfTeachers = teachers
+    if (teachers.length >= 10) {
 
+        let limit = 10 * (start - 1)
+        for (let i = limit; i < limit + 10; i++) {
+            paginatedTeachers.push(teachers[i])
+            let teacherSection = document.createElement("section")
 
-    for (teacher of arrayOfTeachers) {
-        let teacherSection = document.createElement("section")
+            let teacherPhoto = document.createElement("img")
+            teacherPhoto.setAttribute("src", teachers[i].picture_thumbnail)
 
-        let teacherPhoto = document.createElement("img")
-        teacherPhoto.setAttribute("src", teacher.picture_thumbnail)
+            let nameArr = teachers[i].full_name.split(" ")
 
-        let nameArr = teacher.full_name.split(" ")
+            let firstName = document.createElement("span")
+            firstName.innerText = nameArr[0]
+            firstName.classList.add("teacherSpan", "teacherName")
 
-        let firstName = document.createElement("span")
-        firstName.innerText = nameArr[0]
-        firstName.classList.add("teacherSpan", "teacherName")
+            let lastName = document.createElement("span")
+            lastName.innerText = nameArr[1]
+            lastName.classList.add("teacherSpan", "teacherName")
 
-        let lastName = document.createElement("span")
-        lastName.innerText = nameArr[1]
-        lastName.classList.add("teacherSpan", "teacherName")
+            let course = document.createElement("span")
+            course.innerText = teachers[i].course
+            course.classList.add("teacherSpan", "teacherClass")
 
-        let course = document.createElement("span")
-        course.innerText = teacher.course
-        course.classList.add("teacherSpan", "teacherClass")
+            let country = document.createElement("span")
+            country.innerText = teachers[i].country
+            country.classList.add("teacherSpan")
 
-        let country = document.createElement("span")
-        country.innerText = teacher.country
-        country.classList.add("teacherSpan")
+            teacherSection.append(teacherPhoto, firstName, lastName, course, country)
+            teacherSection.classList.add("topTeacher")
+            teacherSection.addEventListener("click", () => { openTeacherPopUp() })
+            listOfTeacher.appendChild(teacherSection)
+        }
+    } else {
+        for (teacher of teachers) {
+            paginatedTeachers.push(teacher)
+            let teacherSection = document.createElement("section")
 
-        teacherSection.append(teacherPhoto, firstName, lastName, course, country)
-        teacherSection.classList.add("topTeacher")
-        teacherSection.addEventListener("click", () => { openTeacherPopUp() })
-        listOfTeacher.appendChild(teacherSection)
+            let teacherPhoto = document.createElement("img")
+            teacherPhoto.setAttribute("src", teacher.picture_thumbnail)
+
+            let nameArr = teacher.full_name.split(" ")
+
+            let firstName = document.createElement("span")
+            firstName.innerText = nameArr[0]
+            firstName.classList.add("teacherSpan", "teacherName")
+
+            let lastName = document.createElement("span")
+            lastName.innerText = nameArr[1]
+            lastName.classList.add("teacherSpan", "teacherName")
+
+            let course = document.createElement("span")
+            course.innerText = teacher.course
+            course.classList.add("teacherSpan", "teacherClass")
+
+            let country = document.createElement("span")
+            country.innerText = teacher.country
+            country.classList.add("teacherSpan")
+
+            teacherSection.append(teacherPhoto, firstName, lastName, course, country)
+            teacherSection.classList.add("topTeacher")
+            teacherSection.addEventListener("click", () => { openTeacherPopUp() })
+            listOfTeacher.appendChild(teacherSection)
+        }
     }
 }
 
-function showTeacherStatistics(sortKey) {
+
+function showTeacherStatistics(teachers, sortKey) {
     let statisticsTable = document.querySelector("tbody")
     statisticsTable.innerHTML = ''
-    sortedTeachers = sort(sortKey, { ordered: true })
+    sortedTeachers = sort(teachers, sortKey, { ordered: true })
     statisticsTable.insertRow()
-    for (let i = 0; i < 5; i++) {
+
+    for (let i = 0; i < 10; i++) {
         let currentRow = statisticsTable.insertRow()
 
-        currentRow.insertCell().innerText = randomUserMock[i].full_name
-        currentRow.insertCell().innerText = randomUserMock[i].course
-        currentRow.insertCell().innerText = randomUserMock[i].age
-        currentRow.insertCell().innerText = randomUserMock[i].gender
-        currentRow.insertCell().innerText = randomUserMock[i].country
+        currentRow.insertCell().innerText = teachers[i].full_name
+        currentRow.insertCell().innerText = teachers[i].course
+        currentRow.insertCell().innerText = teachers[i].age
+        currentRow.insertCell().innerText = teachers[i].gender
+        currentRow.insertCell().innerText = teachers[i].country
     }
 }
 
 
-function showFavouriteTeachers(startingPosition) {
+function showFavouriteTeachers(startingPosition, teachers) {
 
-    let favoriteTeachers = filter("favourite", { equalTo: true })
+    let favoriteTeachers = filter(teachers, "favourite", { equalTo: true })
     if (startingPosition === undefined)
         startingPosition = 0
 
@@ -107,7 +139,7 @@ function showFavouriteTeachers(startingPosition) {
     listOfFavourites.replaceChildren(...newListToAppend.children)
 }
 
-function favouriteSlides() {
+function favouriteSlides(teachers) {
     let arrowLeftSlide = document.getElementById("arrowIconLeft")
     let arrowRightSlide = document.getElementById("arrowIconRight")
 
@@ -116,45 +148,46 @@ function favouriteSlides() {
             if (favouritesShownCount - 5 >= 0) {
                 console.log(`${favouritesShownCount} : count value`)
                 favouritesShownCount--;
-                showFavouriteTeachers(favouritesShownCount -= 4)
+                showFavouriteTeachers(favouritesShownCount -= 4, teachers)
             }
         }
     )
     arrowRightSlide.addEventListener("click",
         () => {
-            if (favouritesShownCount < 10) {
+            if (favouritesShownCount <= 15) {
                 favouritesShownCount++;
-                showFavouriteTeachers(favouritesShownCount -= 4)
+                showFavouriteTeachers(favouritesShownCount -= 4, teachers)
             }
         }
     )
 }
 
-function setTableListeners() {
+function setTableListeners(teachers) {
+    console.log(teachers)
     let nameColumn = document.getElementById("name_column")
     nameColumn.addEventListener("click",
         () => {
-            showTeacherStatistics("full_name")
+            showTeacherStatistics(teachers, "full_name")
         })
     let courseColumn = document.getElementById("course_column")
     courseColumn.addEventListener("click",
         () => {
-            showTeacherStatistics("course")
+            showTeacherStatistics(teachers, "course")
         })
     let ageColumn = document.getElementById("age_column")
     ageColumn.addEventListener("click",
         () => {
-            showTeacherStatistics("age")
+            showTeacherStatistics(teachers, "age")
         })
     let genderColumn = document.getElementById("gender_column")
     genderColumn.addEventListener("click",
         () => {
-            showTeacherStatistics("gender")
+            showTeacherStatistics(teachers, "gender")
         })
     let countryColumn = document.getElementById("country_column")
     countryColumn.addEventListener("click",
         () => {
-            showTeacherStatistics("country")
+            showTeacherStatistics(teachers, "country")
         })
 
 }
@@ -195,22 +228,21 @@ function addTeacher() {
                 "b_date": date,
                 "age": age,
                 "phone": phone,
-                "id": randomTeacher() + 250,
+                "id": randomTeacher(globalTeachers) + 250,
                 "favourite": (Math.floor(Math.random() * 2) == 0 ? true : false), // If 0 true else false
                 "course": course, // Random pick from the courses array
                 "bg_color": bgColor,
                 "note": notes
             }
-            randomUserMock.push(teacher)
+            postUser(teacher)
             closeAddTeacherPopUp()
-            showTopTeachers()
         }
     )
 
 }
 
-function formTopTeachersListeners() {
-    let newListOfTeachers
+function formTopTeachersListeners(teachers) {
+    console.log(teachers)
     let age = document.getElementById("ageSearch")
     age.addEventListener('change',
         () => {
@@ -220,25 +252,73 @@ function formTopTeachersListeners() {
             console.log(lowerBound)
             let upperBound = value.split("-")[1]
             console.log(upperBound)
-            newListOfTeachers = filter("age", { greaterThenEqualsLessThenEquals: [lowerBound, upperBound] })
-            showTopTeachers(newListOfTeachers)
+            console.log(filter(teachers, "age", { greaterThenEqualsLessThenEquals: [lowerBound, upperBound] }))
+            showTopTeachers(filter(teachers, "age", { greaterThenEqualsLessThenEquals: [lowerBound, upperBound] }), 1)
         }, false)
 
     let region = document.getElementById("region")
     region.addEventListener('change',
         () => {
             let value = region.options[region.selectedIndex].value
-            newListOfTeachers = filter("country", { equalTo: value })
-            showTopTeachers(newListOfTeachers)
+            filter(teachers, "country", { equalTo: value })
+            showTopTeachers(filter(teachers, "country", { equalTo: value }), 1)
         })
     let sex = document.getElementById("sex")
     sex.addEventListener('change',
         () => {
             let value = sex.options[sex.selectedIndex].value
-            newListOfTeachers = filter("gender", { equalTo: value })
-            showTopTeachers(newListOfTeachers)
+            showTopTeachers(filter(teachers, "gender", { equalTo: value }), 1)
         })
 }
+
+function setPagination() {
+
+    document.getElementById("firstPage").addEventListener("click", (e) => {
+        e.preventDefault()
+        document.getElementById("firstPage").value = 1
+        showTopTeachers(globalTeachers, document.getElementById("firstPage").value)
+    })
+    document.getElementById("secondPage").addEventListener("click", (e) => {
+        e.preventDefault()
+        document.getElementById("secondPage").value = 2
+        showTopTeachers(globalTeachers, document.getElementById("secondPage").value)
+    })
+    document.getElementById("thirdPage").addEventListener("click", (e) => {
+        e.preventDefault()
+        document.getElementById("thirdPage").value = 3
+        showTopTeachers(globalTeachers, document.getElementById("thirdPage").value)
+    })
+    document.getElementById("lastPage").addEventListener("click", (e) => {
+        e.preventDefault()
+        document.getElementById("lastPage").value = 5
+        console.log(e.value)
+        showTopTeachers(globalTeachers, document.getElementById("lastPage").value)
+    })
+}
+
+
+
+async function setUpUsers() {
+    await fetchUsers()
+        .then((users) => {
+            console.log(users)
+            users = organizeTeachers(users)
+            globalTeachers = users
+            console.log(users)
+            showTopTeachers(globalTeachers, 1)
+            console.log(paginatedTeachers)
+            addTeacher()
+            formTopTeachersListeners(paginatedTeachers)
+            showTeacherStatistics(paginatedTeachers)
+            setTableListeners(paginatedTeachers)
+            showFavouriteTeachers(1, globalTeachers)
+            favouriteSlides(globalTeachers)
+            setPagination()
+            postingUsers(globalTeachers)
+
+        })
+}
+
 
 
 
