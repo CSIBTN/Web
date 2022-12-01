@@ -5,9 +5,43 @@ let favouritesShownCount = 0;
 let globalTeachers = []
 let paginatedTeachers = []
 
+function openTeacherPopUp(teacher) {
+    let name = document.getElementById("teacherPopUpName")
+    name.innerText = teacher.full_name
+
+    let className = document.getElementById("teacherPopUpClass")
+    className.innerText = teacher.course
+
+    let place = document.getElementById("teacherPopUpPlace")
+    place.innerText = `${teacher.city},${teacher.country}`
+
+    let biologicalI = document.getElementById("teacherPopUpBioInf")
+    biologicalI.innerText = `${teacher.age},${teacher.gender}`
+
+    let email = document.getElementById("teacherPopUpEmail")
+    email.innerText = teacher.email
+
+    let phone = document.getElementById("teacherPopUpPhone")
+    phone.innerText = teacher.phone
+
+    let notes = document.getElementById("teacherPopUpNotes")
+    notes.innerText = teacher.note
+
+    let photo = document.getElementById("teacherPopUpImage")
+    photo.setAttribute("src", teacher.picture_large)
+
+    teacherPopUp.classList.add("teacherPopUpOpen")
+    popUpBackground.classList.add("active")
+}
+function closeTeacherPopUp() {
+    teacherPopUp.classList.remove('teacherPopUpOpen')
+    popUpBackground.classList.remove("active")
+}
+
 
 function showTopTeachers(teachers, start) {
     let listOfTeacher = document.getElementById("listOfTopTeachers")
+    paginatedTeachers = []
     listOfTeacher.innerHTML = ''
     let arrayOfTeachers
     if (teachers === undefined)
@@ -43,7 +77,7 @@ function showTopTeachers(teachers, start) {
 
             teacherSection.append(teacherPhoto, firstName, lastName, course, country)
             teacherSection.classList.add("topTeacher")
-            teacherSection.addEventListener("click", () => { openTeacherPopUp() })
+            teacherSection.addEventListener("click", () => { openTeacherPopUp(teachers[i]) })
             listOfTeacher.appendChild(teacherSection)
         }
     } else {
@@ -74,7 +108,7 @@ function showTopTeachers(teachers, start) {
 
             teacherSection.append(teacherPhoto, firstName, lastName, course, country)
             teacherSection.classList.add("topTeacher")
-            teacherSection.addEventListener("click", () => { openTeacherPopUp() })
+            teacherSection.addEventListener("click", () => { openTeacherPopUp(teacher) })
             listOfTeacher.appendChild(teacherSection)
         }
     }
@@ -260,6 +294,7 @@ function formTopTeachersListeners(teachers) {
     region.addEventListener('change',
         () => {
             let value = region.options[region.selectedIndex].value
+            console.log(value)
             filter(teachers, "country", { equalTo: value })
             showTopTeachers(filter(teachers, "country", { equalTo: value }), 1)
         })
@@ -267,6 +302,7 @@ function formTopTeachersListeners(teachers) {
     sex.addEventListener('change',
         () => {
             let value = sex.options[sex.selectedIndex].value
+            console.log(value)
             showTopTeachers(filter(teachers, "gender", { equalTo: value }), 1)
         })
 }
@@ -277,22 +313,67 @@ function setPagination() {
         e.preventDefault()
         document.getElementById("firstPage").value = 1
         showTopTeachers(globalTeachers, document.getElementById("firstPage").value)
+        formTopTeachersListeners(paginatedTeachers)
+        showTeacherStatistics(paginatedTeachers)
+        setTableListeners(paginatedTeachers)
     })
     document.getElementById("secondPage").addEventListener("click", (e) => {
         e.preventDefault()
         document.getElementById("secondPage").value = 2
         showTopTeachers(globalTeachers, document.getElementById("secondPage").value)
+        formTopTeachersListeners(paginatedTeachers)
+        showTeacherStatistics(paginatedTeachers)
+        setTableListeners(paginatedTeachers)
     })
     document.getElementById("thirdPage").addEventListener("click", (e) => {
         e.preventDefault()
         document.getElementById("thirdPage").value = 3
         showTopTeachers(globalTeachers, document.getElementById("thirdPage").value)
+        formTopTeachersListeners(paginatedTeachers)
+        showTeacherStatistics(paginatedTeachers)
+        setTableListeners(paginatedTeachers)
     })
     document.getElementById("lastPage").addEventListener("click", (e) => {
         e.preventDefault()
         document.getElementById("lastPage").value = 5
         console.log(e.value)
         showTopTeachers(globalTeachers, document.getElementById("lastPage").value)
+        formTopTeachersListeners(paginatedTeachers)
+        showTeacherStatistics(paginatedTeachers)
+        setTableListeners(paginatedTeachers)
+        setUpSearch(paginatedTeachers)
+    })
+}
+
+function setUpSearch(teachers) {
+    let searchBtn = document.getElementById("teacherSearchButton")
+    let searchForm = document.getElementById("searchForm")
+    searchForm.addEventListener("submit", (event) => {
+        event.preventDefault()
+    })
+    searchBtn.addEventListener("click", (event) => {
+        let teacherFindField = document.getElementById("teacherFindField")
+        let foundTeacher = {}
+        foundTeacher = find(teachers, "full_name", teacherFindField.value)
+        console.log(foundTeacher)
+        console.log(teacherFindField.value)
+        if (foundTeacher == undefined) {
+            foundTeacher = find(teachers, "age", teacherFindField.value)
+            console.log(foundTeacher)
+            if (foundTeacher == undefined) {
+                foundTeacher = find(teachers, "note", teacherFindField.value)
+                console.log(foundTeacher)
+                if (foundTeacher == undefined) {
+                    alert("No valid teacher found!")
+                } else {
+                    openTeacherPopUp(foundTeacher)
+                }
+            } else {
+                openTeacherPopUp(foundTeacher)
+            }
+        } else {
+            openTeacherPopUp(foundTeacher)
+        }
     })
 }
 
@@ -315,6 +396,7 @@ async function setUpUsers() {
             favouriteSlides(globalTeachers)
             setPagination()
             postingUsers(globalTeachers)
+            setUpSearch(paginatedTeachers)
 
         })
 }

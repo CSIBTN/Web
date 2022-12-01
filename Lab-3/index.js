@@ -128,7 +128,9 @@ function filter(teachers, key, options = { greaterThen, greaterThenEquals, lessT
                     return teacher[key].includes(`${includes}`)
                 return false
             } else if (options.equalTo !== undefined) {
-                return teacher[key] === options.equalTo
+                return teacher[key] == options.equalTo
+            } else {
+                return false
             }
         })
     else return []
@@ -156,9 +158,10 @@ function sort(teachers, key, options = { ordered }) {
     })
 }
 
-function find(key, value) {
-    return randomUserMock.find(function predicate(teacher) {
+function find(teachers, key, value) {
+    return teachers.find(function predicate(teacher) {
         return teacher[key] === value ? true : teacher[key].includes(value)
+
     })
 }
 
