@@ -1,9 +1,11 @@
 setUpUsers()
 
 
+
 let favouritesShownCount = 0;
 let globalTeachers = []
 let paginatedTeachers = []
+let chart = new Chart()
 
 function openTeacherPopUp(teacher) {
     let name = document.getElementById("teacherPopUpName")
@@ -30,8 +32,33 @@ function openTeacherPopUp(teacher) {
     let photo = document.getElementById("teacherPopUpImage")
     photo.setAttribute("src", teacher.picture_large)
 
+    let birthInfo = document.getElementById("birthdayInfo")
+    birthInfo.innerText = daysUntilBirthday(teacher.b_date.substring(0, 10).replace(/^\d{4}/, dayjs().get('year') + 1))
+
+
+
+    document.getElementById("teacherMapsToggle").addEventListener('click', (event) => {
+        event.preventDefault()
+        openMapPopUp(teacher)
+
+    })
+
     teacherPopUp.classList.add("teacherPopUpOpen")
     popUpBackground.classList.add("active")
+}
+
+function openMapPopUp(teacher) {
+    map.setView([teacher.coordinates.latitude, teacher.coordinates.longitude], 13)
+
+    const marker = L.marker([teacher.coordinates.latitude, teacher.coordinates.longitude]).addTo(map)
+        .bindPopup(`<b>${teacher.full_name}'s position</b>`).openPopup();
+    document.getElementById("mapBackground").classList.add("mapActiveBackground")
+    document.getElementById("mapContainer").classList.add("teacherMapOpen")
+}
+
+function closeMapPopUp() {
+    document.getElementById("mapBackground").classList.remove("mapActiveBackground")
+    document.getElementById("mapContainer").classList.remove("teacherMapOpen")
 }
 function closeTeacherPopUp() {
     teacherPopUp.classList.remove('teacherPopUpOpen')
@@ -201,26 +228,31 @@ function setTableListeners(teachers) {
     let nameColumn = document.getElementById("name_column")
     nameColumn.addEventListener("click",
         () => {
+            fillChartWithData("full_name", teachers)
             showTeacherStatistics(teachers, "full_name")
         })
     let courseColumn = document.getElementById("course_column")
     courseColumn.addEventListener("click",
         () => {
+            fillChartWithData("course", teachers)
             showTeacherStatistics(teachers, "course")
         })
     let ageColumn = document.getElementById("age_column")
     ageColumn.addEventListener("click",
         () => {
+            fillChartWithData("age", teachers)
             showTeacherStatistics(teachers, "age")
         })
     let genderColumn = document.getElementById("gender_column")
     genderColumn.addEventListener("click",
         () => {
+            fillChartWithData("gender", teachers)
             showTeacherStatistics(teachers, "gender")
         })
     let countryColumn = document.getElementById("country_column")
     countryColumn.addEventListener("click",
         () => {
+            fillChartWithData("country", teachers)
             showTeacherStatistics(teachers, "country")
         })
 
@@ -316,6 +348,7 @@ function setPagination() {
         formTopTeachersListeners(paginatedTeachers)
         showTeacherStatistics(paginatedTeachers)
         setTableListeners(paginatedTeachers)
+        fillChartWithData("full_name", paginatedTeachers)
     })
     document.getElementById("secondPage").addEventListener("click", (e) => {
         e.preventDefault()
@@ -324,6 +357,7 @@ function setPagination() {
         formTopTeachersListeners(paginatedTeachers)
         showTeacherStatistics(paginatedTeachers)
         setTableListeners(paginatedTeachers)
+        fillChartWithData("full_name", paginatedTeachers)
     })
     document.getElementById("thirdPage").addEventListener("click", (e) => {
         e.preventDefault()
@@ -332,6 +366,7 @@ function setPagination() {
         formTopTeachersListeners(paginatedTeachers)
         showTeacherStatistics(paginatedTeachers)
         setTableListeners(paginatedTeachers)
+        fillChartWithData("full_name", paginatedTeachers)
     })
     document.getElementById("lastPage").addEventListener("click", (e) => {
         e.preventDefault()
@@ -342,6 +377,8 @@ function setPagination() {
         showTeacherStatistics(paginatedTeachers)
         setTableListeners(paginatedTeachers)
         setUpSearch(paginatedTeachers)
+        fillChartWithData("full_name", paginatedTeachers)
+
     })
 }
 
@@ -376,7 +413,47 @@ function setUpSearch(teachers) {
         }
     })
 }
+function fillChartWithData(key, teachers) {
+    const ctx = document.getElementById('pieChart');
 
+    chart.destroy()
+
+    chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: teachers.map(teacher => teacher.full_name),
+            datasets: [{
+                label: `${key}`,
+                data: teachers.map(teacher => teacher[key]),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        },
+        callbacks: {
+            label: function (tooltipItem, data) {
+                var label = data.datasets[tooltipItem.datasetIndex].label;
+                var val = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                return label + ' : ' + val + ' Mb';
+            }
+        }
+    });
+}
+
+function daysUntilBirthday(date) {
+    let birthday = dayjs(date);
+    let today = `${dayjs().get('year')}-${(dayjs().get('month') + 1)}-${dayjs().get('date')}`
+    if (birthday.isSame(dayjs())) {
+        return 'Cake!!';
+    } else {
+        return 'Days until next birthday' + ' ' + Math.abs(birthday.diff(today, 'days'));
+    }
+}
 
 
 async function setUpUsers() {
@@ -397,7 +474,7 @@ async function setUpUsers() {
             setPagination()
             postingUsers(globalTeachers)
             setUpSearch(paginatedTeachers)
-
+            fillChartWithData("full_name", paginatedTeachers)
         })
 }
 

@@ -4,19 +4,20 @@ let newApiListOfTeachers = []
 
 
 async function fetchUser() {
-    let userToReturn = {}
 
-    await fetch(userURL)
+
+    return await fetch(userURL)
         .then((user) => {
             return user.json()
         })
         .then((user) => {
-            userToReturn = user.results[0]
+            return user.results[0]
         })
         .catch((error) => {
             console.log(error)
+            console.log(error.body)
         })
-    return userToReturn
+
 }
 
 async function fetchUsers() {
