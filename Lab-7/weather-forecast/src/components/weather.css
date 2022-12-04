@@ -1,0 +1,141 @@
+.logoBlock {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgb(164, 249, 255);
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+
+
+.logoText {
+    font-size: 2em;
+    margin-left: 2%;
+    color: rgb(0, 0, 0);
+    text-shadow: -1px 2px 3px rgba(30, 209, 200, 0.6), 1px -2px 3px rgba(221, 229, 0, 0.6);
+}
+
+.logo {
+    height: 65px;
+    width: 65px;
+    margin-left: 2%;
+    margin-right: 2%;
+    align-self: center;
+}
+
+.weatherIcon {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+}
+
+.coordinatesBlock {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.coordinatesField {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.coordinatesInput {
+    border: 1px dotted rgb(121, 73, 73);
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.coordinatesInput:hover {
+    cursor: pointer;
+    border: 1px solid rgb(121, 73, 73);
+}
+
+.searchButton {
+    width: 200px;
+    border: 2px dotted rgb(121, 73, 73);
+    border-radius: 2rem;
+    color: black;
+}
+
+.searchButton:hover {
+    border-style: solid;
+}
+
+.weatherList {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.arrow {
+    margin: 4px;
+    width: 90px;
+    height: 90px;
+    transition: all 0.3s;
+}
+
+.arrow:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
+
+
+
+.weatherBlock {
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    margin-top: 5%;
+    background-color: rgba(152, 238, 238, 0.439);
+    border: 1px solid rgba(100, 176, 223, 0.719);
+    box-shadow: 10px 10px 10px rgba(113, 250, 255, 0.495);
+    border-radius: 1rem;
+    min-width: 500px;
+    min-height: 400px;
+    transition: 0.3s;
+}
+
+@media only screen and (min-width:728px) {
+    .weatherBlock:hover {
+        transform: scale(1.2);
+    }
+}
+
+@media only screen and (max-width:700px) {
+    .weatherList {
+        flex-wrap: wrap;
+    }
+
+    .arrowLeft {
+        align-self: flex-start;
+    }
+
+    .arrowRight {
+        align-self: flex-end;
+    }
+}
+
+
+.weatherSpan {
+    display: flex;
+    font-size: 1.5rem;
+    margin: 4px;
+    margin-top: 25px;
+    text-shadow: 0.5px 0.5px black;
+}
+
+
+.temperatureBlock {
+    margin-left: 10%;
+    display: flex;
+    flex-direction: column;
+
+}

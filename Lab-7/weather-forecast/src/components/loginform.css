@@ -1,0 +1,88 @@
+:root {
+    --mainColor: rgb(121, 73, 73);
+}
+
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Sans-Custom";
+}
+
+@font-face {
+    font-family: "Sans-Custom";
+    src: url("../fonts/SourceSansPro-SemiBoldItalic.ttf");
+}
+
+.loginContainer {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.login {
+    background-color: whitesmoke;
+    width: 500px;
+    height: 400px;
+    position: relative;
+    border-radius: 1em;
+    box-shadow: 0 0.188em 1.550em var(--mainColor);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+input {
+    border: none;
+    background-color: whitesmoke;
+    height: 2rem;
+    width: 80%;
+    border-radius: 0.25rem;
+    text-align: center;
+    padding: 1.5rem;
+    font-size: large;
+}
+
+input:focus {
+    outline-color: var(--mainColor);
+}
+
+.login-button {
+    width: 50%;
+    height: 2em;
+    background-color: var(--mainColor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: large;
+}
+
+.login-button:hover {
+    transform: scale(1.25);
+}
+
+.hiding {
+    display: none;
+}
+
+.error-popup {
+    position: absolute;
+    height: 300px;
+    width: 600px;
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25em;
+    background-color: rgba(0, 0, 0, 0.585);
+    color: white;
+    bottom: 0;
+    transform: scale(1);
+}
